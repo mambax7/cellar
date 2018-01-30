@@ -1,3 +1,3 @@
 <h5>1.0       [2018/01/19]</h5>               
 <hr>
- - Original release Cellar (XOOPS Development Team)
+ - Original release Cellar (mamba)

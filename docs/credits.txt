@@ -1,10 +1,4 @@
-Read Me First
+CREDITS
 =============
 
-Originally created by the TDM Team.
-
-Modified by Timgno (http://www.txmodxoops.org)
-
-Contributors: Mamba (https://xoops.org)
-
-Included ideas for Logo Generator from Trabis (Publisher module) and Suin (Koins module)
+Wine cellar module (based on https://github.com/ccoenraets/wine-cellar-php)

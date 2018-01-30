@@ -1,4 +1,4 @@
-Read Me First
+INSTALL
 =============
 
 Install just like another XOOPS module
