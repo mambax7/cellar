@@ -199,7 +199,7 @@ switch ($op) {
 
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $uploadDir = XOOPS_UPLOAD_PATH . '/cellar/images/';
-        $uploader  = new \XoopsMediaUploader($uploadDir, xoops_getModuleOption('mimetypes', 'cellar'), xoops_getModuleOption('maxsize', 'cellar'), null, null);
+        $uploader  = new \XoopsMediaUploader($uploadDir, $helper->getConfig('mimetypes'), $helper->getConfig('maxsize'), null, null);
         if ($uploader->fetchMedia(Request::getArray('xoops_upload_file', '', 'POST')[0])) {
 
             //$extension = preg_replace( '/^.+\.([^.]+)$/sU' , '' , $_FILES['attachedfile']['name']);

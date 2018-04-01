@@ -73,11 +73,9 @@ trait VersionChecks
         $success = true;
         $verNum  = PHP_VERSION;
         $reqVer  = $module->getInfo('min_php');
-        if (false !== $reqVer && '' !== $reqVer) {
-            if (version_compare($verNum, $reqVer, '<')) {
-                $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_PHP'), $reqVer, $verNum));
-                $success = false;
-            }
+        if (false !== $reqVer && '' !== $reqVer && version_compare($verNum, $reqVer, '<')) {
+            $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_PHP'), $reqVer, $verNum));
+            $success = false;
         }
 
         return $success;

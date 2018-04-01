@@ -96,7 +96,7 @@ class WineForm extends \XoopsThemeForm
         $imgtray->addElement($imageselect);
         $imgtray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadDir . '/' . $picture . "' name='image_picture' id='image_picture' alt='' />"));
         $fileseltray = new \XoopsFormElementTray('', '<br>');
-        $fileseltray->addElement(new \XoopsFormFile(AM_CELLAR_FORMUPLOAD, 'picture', xoops_getModuleOption('maxsize')));
+        $fileseltray->addElement(new \XoopsFormFile(AM_CELLAR_FORMUPLOAD, 'picture', $helper->getConfig('maxsize')));
         $fileseltray->addElement(new \XoopsFormLabel(''));
         $imgtray->addElement($fileseltray);
         $this->addElement($imgtray);

@@ -31,16 +31,16 @@ require_once __DIR__ . '/include/config.php';
 // Define Stylesheet
 $xoTheme->addStylesheet($stylesheet);
 // keywords
-$utility::meta_keywords(xoops_getModuleOption('keywords', $moduleDirName));
+$utility::meta_keywords($helper->getConfig('keywords'));
 // description
 $utility::meta_description(MD_CELLAR_DESC);
 //
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', CELLAR_URL . '/index.php');
 $GLOBALS['xoopsTpl']->assign('cellar_url', CELLAR_URL);
-$GLOBALS['xoopsTpl']->assign('adv', xoops_getModuleOption('advertise', $moduleDirName));
+$GLOBALS['xoopsTpl']->assign('adv', $helper->getConfig('advertise'));
 //
-$GLOBALS['xoopsTpl']->assign('bookmarks', xoops_getModuleOption('bookmarks', $moduleDirName));
-$GLOBALS['xoopsTpl']->assign('fbcomments', xoops_getModuleOption('fbcomments', $moduleDirName));
+$GLOBALS['xoopsTpl']->assign('bookmarks', $helper->getConfig('bookmarks'));
+$GLOBALS['xoopsTpl']->assign('fbcomments', $helper->getConfig('fbcomments'));
 //
 $GLOBALS['xoopsTpl']->assign('admin', CELLAR_ADMIN);
 $GLOBALS['xoopsTpl']->assign('copyright', $copyright);

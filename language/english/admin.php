@@ -94,7 +94,7 @@ define('AM_CELLAR_PERMSET', 'The permission has been set');
 define('AM_CELLAR_PERMNOTSET', 'The permission can not be set');
 define('AM_CELLAR_VIDEO_EXPIREWARNING', 'The publishing date is after expiration date!!!');
 //Sample Data
-define('AM_CELLAR_ADD_SAMPLEDATA', 'Add Sample Data (will delete ALL current data)');
+define('AM_CELLAR_ADD_SAMPLEDATA', 'Import Sample Data (will delete ALL current data)');
 define('AM_CELLAR_SAMPLEDATA_SUCCESS', 'Sample Date uploaded successfully');
 
 //Error NoFrameworks

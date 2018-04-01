@@ -32,14 +32,9 @@ use XoopsModules\Cellar;
  */
 function showCellarWine($options)
 {
-    // require_once dirname(__DIR__) . '/class/wine.php';
-    $moduleDirName = basename(dirname(__DIR__));
-    //$myts = \MyTextSanitizer::getInstance();
-
     $block     = [];
     $blockType = $options[0];
     $wineCount = $options[1];
-    //$titleLenght = $options[2];
 
     /** @var XoopsPersistableObjectHandler $wineHandler */
     $wineHandler = new Cellar\WineHandler($GLOBALS['xoopsDB']);

@@ -49,7 +49,6 @@ class Utility
     {
         global $start, $order, $file_cat, $sort, $xoopsModule;
 
-        $select_view   = '';
         $moduleDirName = basename(dirname(__DIR__));
 
         //        if (false !== ($helper = Xmf\Module\Helper::getHelper($moduleDirName))) {
@@ -264,7 +263,7 @@ class Utility
         if (!$exact) {
             // ...search the last occurance of a space...
             $spacepos = strrpos($truncate, ' ');
-            if (isset($spacepos)) {
+            if (null !== $spacepos) {
                 // ...and cut the text in this position
                 $truncate = substr($truncate, 0, $spacepos);
             }

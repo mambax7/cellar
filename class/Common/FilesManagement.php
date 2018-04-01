@@ -1,4 +1,5 @@
 <?php
+
 namespace XoopsModules\Cellar\Common;
 
 /*
@@ -36,7 +37,7 @@ trait FilesManagement
         try {
             if (!file_exists($folder)) {
                 if (!mkdir($folder) && !is_dir($folder)) {
-                    throw new \RuntimeException(sprintf('Unable to create the %s directory', $folder));
+                    throw new \UnexpectedValueException(sprintf('Unable to create the %s directory', $folder));
                 }
 
                 file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
@@ -60,11 +61,14 @@ trait FilesManagement
     /**
      * @param $src
      * @param $dst
+     * @throws \UnexpectedValueException
      */
     public static function recurseCopy($src, $dst)
     {
         $dir = opendir($src);
-        @mkdir($dst);
+        if (!mkdir($dst) && !is_dir($dst)) {
+            throw new \UnexpectedValueException('The directory ' . $dst . ' could not be created.');
+        }
         while (false !== ($file = readdir($dir))) {
             if (('.' !== $file) && ('..' !== $file)) {
                 if (is_dir($src . '/' . $file)) {
@@ -82,10 +86,10 @@ trait FilesManagement
      * @author      Aidan Lister <aidan@php.net>
      * @version     1.0.1
      * @link        http://aidanlister.com/2004/04/recursively-copying-directories-in-php/
-     * @param       string $source      Source path
-     * @param       string $dest        Destination path
-     * @param       int    $permissions New folder creation permissions
+     * @param       string $source Source path
+     * @param       string $dest   Destination path
      * @return      bool     Returns true on success, false on failure
+     * @throws \UnexpectedValueException
      */
     public static function xcopy($source, $dest)
     {
@@ -100,8 +104,8 @@ trait FilesManagement
         }
 
         // Make destination directory
-        if (!is_dir($dest)) {
-            mkdir($dest);
+        if (!is_dir($dest) && !mkdir($dest) && !is_dir($dest)) {
+            throw new \UnexpectedValueException(sprintf('Directory "%s" was not created', $dest));
         }
 
         if (@is_dir($source)) {
@@ -144,8 +148,7 @@ trait FilesManagement
         $dirInfo = new \SplFileInfo($src);
         // validate is a directory
         if ($dirInfo->isDir()) {
-            $fileList = array_diff(scandir($src, SCANDIR_SORT_NONE), ['..', '.']);
-            foreach ($fileList as $k => $v) {
+            foreach (array_diff(scandir($src, SCANDIR_SORT_NONE), ['..', '.']) as $k => $v) {
                 $fileInfo = new \SplFileInfo("{$src}/{$v}");
                 if ($fileInfo->isDir()) {
                     // recursively handle subdirectories
@@ -192,8 +195,6 @@ trait FilesManagement
             return false;
         }
 
-        $success = true;
-
         // Open the source directory to read in files
         $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
@@ -233,7 +234,7 @@ trait FilesManagement
         }
 
         // If the destination directory does not exist and could not be created stop processing
-        if (!is_dir($dest) && !mkdir($dest, 0755)) {
+        if (!is_dir($dest) && !mkdir($dest, 0755) && !is_dir($dest)) {
             return false;
         }
 
@@ -276,7 +277,7 @@ trait FilesManagement
         }
 
         // If the destination directory does not exist and could not be created stop processing
-        if (!is_dir($dest) && !mkdir($dest, 0755)) {
+        if (!is_dir($dest) && !mkdir($dest, 0755) && !is_dir($dest)) {
             return false;
         }
 

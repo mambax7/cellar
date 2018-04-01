@@ -66,7 +66,7 @@ function xoops_module_pre_update_cellar(\XoopsModule $module)
  *
  * Performs tasks required during update of the module
  * @param \XoopsModule $module {@link XoopsModule}
- * @param null         $previousVersion
+ * @param null|int         $previousVersion
  *
  * @return bool true if update successful, false if not
  */
@@ -74,8 +74,6 @@ function xoops_module_pre_update_cellar(\XoopsModule $module)
 function xoops_module_update_cellar(\XoopsModule $module, $previousVersion = null)
 {
     $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName);
-
     /** @var Cellar\Helper $helper */
     /** @var Cellar\Utility $utility */
     /** @var Cellar\Common\Configurator $configurator */

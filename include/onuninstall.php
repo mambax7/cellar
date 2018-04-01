@@ -30,7 +30,7 @@ use XoopsModules\Cellar;
  *
  * @return bool true if ready to uninstall, false if not
  */
-function xoops_module_pre_uninstall_cellar(\XoopsModule $module)
+function xoops_module_pre_uninstall_cellar(\XoopsModule $module = null)
 {
     // Do some synchronization if needed
     return true;

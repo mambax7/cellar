@@ -25,10 +25,6 @@ namespace XoopsModules\Cellar;
 use XoopsModules\Cellar;
 use XoopsModules\Cellar\Form;
 
-$moduleDirName = basename(dirname(__DIR__));
-
-//$permHelper = new \Xmf\Module\Helper\Permission();
-
 /**
  * Class Wine
  */
@@ -72,7 +68,6 @@ class Wine extends \XoopsObject
     public function getGroupsRead()
     {
         $permHelper = new \Xmf\Module\Helper\Permission();
-        //return $this->publisher->getHandler('permission')->getGrantedGroupsById('wine_read', id);
         return $permHelper->getGroupsForItem('sbcolumns_read', $this->getVar('id'));
     }
 
@@ -82,7 +77,6 @@ class Wine extends \XoopsObject
     public function getGroupsSubmit()
     {
         $permHelper = new \Xmf\Module\Helper\Permission();
-        //        return $this->publisher->getHandler('permission')->getGrantedGroupsById('wine_submit', id);
         return $permHelper->getGroupsForItem('sbcolumns_submit', $this->getVar('id'));
     }
 
@@ -92,7 +86,6 @@ class Wine extends \XoopsObject
     public function getGroupsModeration()
     {
         $permHelper = new \Xmf\Module\Helper\Permission();
-        //        return $this->publisher->getHandler('permission')->getGrantedGroupsById('wine_moderation', id);
         return $permHelper->getGroupsForItem('sbcolumns_moderation', $this->getVar('id'));
     }
 }
