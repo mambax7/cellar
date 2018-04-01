@@ -1,4 +1,5 @@
 <?php
+
 namespace XoopsModules\Cellar;
 
 /*
@@ -31,7 +32,6 @@ use XoopsModules\Cellar\Common;
  */
 class Utility
 {
-
     use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
 
     use Common\ServerStats; // getServerStats Trait
@@ -83,12 +83,12 @@ class Utility
     public static function block_addCatSelect($cats)
     {
         $cat_sql = '';
-            $cat_sql = '(' . current($cats);
-            array_shift($cats);
-            foreach ($cats as $cat) {
-                $cat_sql .= ',' . $cat;
-            }
-            $cat_sql .= ')';
+        $cat_sql = '(' . current($cats);
+        array_shift($cats);
+        foreach ($cats as $cat) {
+            $cat_sql .= ',' . $cat;
+        }
+        $cat_sql .= ')';
 
         return $cat_sql;
     }
@@ -170,7 +170,7 @@ class Utility
         // set the auto-incremented id's value to blank.
         unset($tempTable[$id_field]);
         // insert cloned copy of the original  record 
-        if (!$result = $GLOBALS['xoopsDB']->queryF("INSERT INTO $table (" . implode(', ', array_keys($tempTable)) . ") VALUES ('" . implode("', '", array_values($tempTable)) . "')")) {
+        if (!$GLOBALS['xoopsDB']->queryF("INSERT INTO $table (" . implode(', ', array_keys($tempTable)) . ") VALUES ('" . implode("', '", array_values($tempTable)) . "')")) {
             throw new \UnexpectedValueException('Empty MySQL query: ' . $GLOBALS['xoopsDB']->error());
         }
 
@@ -283,5 +283,4 @@ class Utility
 
         return $truncate;
     }
-
 }
