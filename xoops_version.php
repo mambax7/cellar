@@ -175,8 +175,7 @@ $criteria = new \CriteriaCompo ();
 $criteria->add(new \Criteria ('group_type', 'Admin'));
 /** @var XoopsMemberHandler $memberHandler */
 $memberHandler    = xoops_getHandler('member');
-$adminXoopsGroups = $memberHandler->getGroupList($criteria);
-foreach ($adminXoopsGroups as $key => $adminGroup) {
+foreach ($memberHandler->getGroupList($criteria) as $key => $adminGroup) {
     $admin_groups[$adminGroup] = $key;
 }
 $modversion['config'][] = [

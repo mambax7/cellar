@@ -83,14 +83,12 @@ class Utility
     public static function block_addCatSelect($cats)
     {
         $cat_sql = '';
-        if (is_array($cats)) {
             $cat_sql = '(' . current($cats);
             array_shift($cats);
             foreach ($cats as $cat) {
                 $cat_sql .= ',' . $cat;
             }
             $cat_sql .= ')';
-        }
 
         return $cat_sql;
     }
@@ -130,6 +128,7 @@ class Utility
      * @param $columnName
      *
      * @return array
+     * @throws \UnexpectedValueException
      */
     public static function enumerate($tableName, $columnName)
     {
@@ -142,11 +141,11 @@ class Utility
         $sql    = 'SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = "' . $table . '" AND COLUMN_NAME = "' . $columnName . '"';
         $result = $GLOBALS['xoopsDB']->query($sql);
         if (!$result) {
-            exit ($GLOBALS['xoopsDB']->error());
+            throw new \UnexpectedValueException('Empty MySQL query: ' . $GLOBALS['xoopsDB']->error());
         }
 
         $row      = $GLOBALS['xoopsDB']->fetchBoth($result);
-        $enumList = explode(',', str_replace("'", '', substr($row['COLUMN_TYPE'], 5, strlen($row['COLUMN_TYPE']) - 6)));
+        $enumList = explode(',', str_replace("'", '', substr($row['COLUMN_TYPE'], 5, -6)));
         return $enumList;
     }
 
@@ -156,22 +155,27 @@ class Utility
      * @param int          $id
      *
      * @return mixed
+     * @throws \UnexpectedValueException
      */
     public static function cloneRecord($tableName, $id_field, $id)
     {
         $new_id = false;
         $table  = $GLOBALS['xoopsDB']->prefix($tableName);
         // copy content of the record you wish to clone 
-        $tempTable = $GLOBALS['xoopsDB']->fetchArray($GLOBALS['xoopsDB']->query("SELECT * FROM $table WHERE $id_field='$id' "), MYSQLI_ASSOC) or exit('Could not select record');
+
+        if (!$tempTable = $GLOBALS['xoopsDB']->fetchArray($GLOBALS['xoopsDB']->query("SELECT * FROM $table WHERE $id_field='$id' "), MYSQLI_ASSOC)) {
+            throw new \UnexpectedValueException('Empty MySQL query: ' . $GLOBALS['xoopsDB']->error());
+        }
+
         // set the auto-incremented id's value to blank.
         unset($tempTable[$id_field]);
         // insert cloned copy of the original  record 
-        $result = $GLOBALS['xoopsDB']->queryF("INSERT INTO $table (" . implode(', ', array_keys($tempTable)) . ") VALUES ('" . implode("', '", array_values($tempTable)) . "')") or exit ($GLOBALS['xoopsDB']->error());
-
-        if ($result) {
-            // Return the new id
-            $new_id = $GLOBALS['xoopsDB']->getInsertId();
+        if (!$result = $GLOBALS['xoopsDB']->queryF("INSERT INTO $table (" . implode(', ', array_keys($tempTable)) . ") VALUES ('" . implode("', '", array_values($tempTable)) . "')")) {
+            throw new \UnexpectedValueException('Empty MySQL query: ' . $GLOBALS['xoopsDB']->error());
         }
+
+        $new_id = $GLOBALS['xoopsDB']->getInsertId();
+
         return $new_id;
     }
 
@@ -209,7 +213,7 @@ class Utility
                         // if tag is a closing tag
                     } elseif (preg_match('/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings[1], $tag_matchings)) {
                         // delete tag from $open_tags list
-                        $pos = array_search($tag_matchings[1], $open_tags);
+                        $pos = array_search($tag_matchings[1], $open_tags, true);
                         if (false !== $pos) {
                             unset($open_tags[$pos]);
                         }

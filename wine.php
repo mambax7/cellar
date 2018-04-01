@@ -29,6 +29,8 @@ $GLOBALS['xoopsOption']['template_main'] = 'cellar_wine_list.tpl';
 require_once __DIR__ . '/header.php';
 $start = Request::getInt('start', 0);
 // Define Stylesheet
+
+/** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet($stylesheet);
 
 $db = \XoopsDatabaseFactory::getDatabaseConnection();
@@ -122,14 +124,14 @@ switch ($op) {
 
 //keywords
 if (isset($keywords)) {
-    $utility::meta_keywords($helper->getConfig(('keywords')) . ', ' . implode(', ', $keywords));
+    $utility::meta_keywords($helper->getConfig('keywords') . ', ' . implode(', ', $keywords));
 }
 //description
 $utility::meta_description(MD_CELLAR_WINE_DESC);
 //
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', CELLAR_URL . '/wine.php');
 $GLOBALS['xoopsTpl']->assign('cellar_url', CELLAR_URL);
-$GLOBALS['xoopsTpl']->assign('adv', $helper->getConfig(('advertise')));
+$GLOBALS['xoopsTpl']->assign('adv', $helper->getConfig('advertise'));
 //
 $GLOBALS['xoopsTpl']->assign('bookmarks', $helper->getConfig('bookmarks'));
 $GLOBALS['xoopsTpl']->assign('fbcomments', $helper->getConfig('fbcomments'));

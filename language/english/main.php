@@ -43,3 +43,5 @@ define('MD_CELLAR_WINE_COUNTRY', 'Country');
 define('MD_CELLAR_WINE_REGION', 'Region');
 define('MD_CELLAR_WINE_DESCRIPTION', 'Description');
 define('MD_CELLAR_WINE_PICTURE', 'Picture');
+define('MD_ACTIVE', 'Active');
+

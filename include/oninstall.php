@@ -59,6 +59,7 @@ function xoops_module_pre_install_cellar(\XoopsModule $module)
  * @param XoopsModule $module {@link XoopsModule}
  *
  * @return bool true if installation successful, false if not
+ * @throws \UnexpectedValueException
  */
 function xoops_module_install_cellar(\XoopsModule $module)
 {
@@ -117,6 +118,10 @@ function xoops_module_install_cellar(\XoopsModule $module)
     //delete .html entries from the tpl table
     $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
     $GLOBALS['xoopsDB']->queryF($sql);
+
+    if (!$GLOBALS['xoopsDB']->queryF($sql)) {
+        throw new \UnexpectedValueException('Could not delete the records: ' . $GLOBALS['xoopsDB']->error());
+    }
 
     return true;
 }

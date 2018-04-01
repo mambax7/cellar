@@ -90,7 +90,7 @@ class WineForm extends \XoopsThemeForm
         $imageselect = new \XoopsFormSelect($imgpath, 'picture', $picture);
         $imageArray  = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $uploadDir);
         foreach ($imageArray as $image) {
-            $imageselect->addOption("$image", $image);
+            $imageselect->addOption((string)$image, $image);
         }
         $imageselect->setExtra("onchange='showImgSelected(\"image_picture\", \"picture\", \"" . $uploadDir . '", "", "' . XOOPS_URL . "\")'");
         $imgtray->addElement($imageselect);

@@ -64,7 +64,6 @@ function showCellarWine($options)
 function editCellarWine($options)
 {
     require_once dirname(__DIR__) . '/class/wine.php';
-    $moduleDirName = basename(dirname(__DIR__));
 
     $form = MB_CELLAR_DISPLAY;
     $form .= "<input type='hidden' name='options[0]' value='" . $options[0] . "' />";

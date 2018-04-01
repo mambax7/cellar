@@ -29,6 +29,7 @@ require_once __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once __DIR__ . '/include/config.php';
 // Define Stylesheet
+/** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet($stylesheet);
 // keywords
 $utility::meta_keywords($helper->getConfig('keywords'));

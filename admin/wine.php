@@ -22,12 +22,8 @@
  * @since           1.0.0
  */
 
-use Xmf\Module\Admin;
-use Xmf\Database\Tables;
-use Xmf\Debug;
-use Xmf\Module\Helper;
-use Xmf\Module\Helper\Permission;
 use Xmf\Request;
+use Xmf\Module\Helper\Permission;
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();

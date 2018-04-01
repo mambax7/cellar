@@ -21,10 +21,9 @@ namespace XoopsModules\Cellar;
  * @link            https://xoops.org/
  * @since           1.0.0
  */
-use XoopsModules\Cellar;
+
 
 $moduleDirName = basename(dirname(__DIR__));
-
 $permHelper = new \Xmf\Module\Helper\Permission();
 
 /**
