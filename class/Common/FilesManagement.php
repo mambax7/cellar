@@ -42,7 +42,8 @@ trait FilesManagement
 
                 file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
             }
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), '<br>';
         }
     }
@@ -58,7 +59,7 @@ trait FilesManagement
     }
 
     /**
-     * @param null|resource $src
+     * @param null|resource        $src
      * @param null|resource|string $dest
      * @throws \UnexpectedValueException
      */
@@ -85,13 +86,18 @@ trait FilesManagement
      * @author      Aidan Lister <aidan@php.net>
      * @version     1.0.1
      * @link        http://aidanlister.com/2004/04/recursively-copying-directories-in-php/
-     * @param       resource|string $source Source path
-     * @param       resource|string $dest   Destination path
+     * @param       string $source Source path
+     * @param       string $dest   Destination path
      * @return      bool     Returns true on success, false on failure
      * @throws \UnexpectedValueException
      */
     public static function xcopy($source, $dest)
     {
+        // Only continue if user is a 'global' Admin
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+            return false;
+        }
+
         // Check for symlinks
         if (is_link($source)) {
             return symlink(readlink($source), $dest);
@@ -213,10 +219,53 @@ trait FilesManagement
     }
 
     /**
+     * Delete a file, or a folder and its contents (recursive algorithm)
+     *
+     * @author      Aidan Lister <aidan@php.net>
+     * @version     1.0.3
+     * @link        http://aidanlister.com/2004/04/recursively-deleting-a-folder-in-php/
+     * @param       string $dirname Directory to delete
+     * @return      bool     Returns TRUE on success, FALSE on failure
+     */
+    public static function rmdirr($dirname)
+    {
+        // Only continue if user is a 'global' Admin
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+            return false;
+        }
+
+        // Sanity check
+        if (!file_exists($dirname)) {
+            return false;
+        }
+
+        // Simple delete for a file
+        if (is_file($dirname) || is_link($dirname)) {
+            return unlink($dirname);
+        }
+
+        // Loop through the folder
+        $dir = dir($dirname);
+        while (false !== $entry = $dir->read()) {
+            // Skip pointers
+            if ('.' === $entry || '..' === $entry) {
+                continue;
+            }
+
+            // Recurse
+            self::rmdirr($dirname . '/' . $entry);
+        }
+
+        // Clean up
+        $dir->close();
+        return rmdir($dirname);
+    }
+
+    /**
      * Recursively move files from one directory to another
      *
-     * @param null|resource|string $src  - Source of files being moved
-     * @param null|resource $dest - Destination of files being moved
+     * @param null|string $src  - Source of files being moved
+     * @param null|string $dest - Destination of files being moved
      *
      * @return bool true on success
      */
@@ -255,8 +304,8 @@ trait FilesManagement
     /**
      * Recursively copy directories and files from one directory to another
      *
-     * @param null|resource|string $src  - Source of files being moved
-     * @param null|resource $dest - Destination of files being moved
+     * @param null|string $src  - Source of files being moved
+     * @param null|string $dest - Destination of files being moved
      *
      * @uses \Xmf\Module\Helper::getHelper()
      * @uses \Xmf\Module\Helper::isUserAdmin()
@@ -290,4 +339,46 @@ trait FilesManagement
         }
         return true;
     }
+
+    /**
+     * Create a directory structure recursively
+     *
+     * @author      Aidan Lister <aidan@php.net>
+     * @version     1.0.0
+     * @param       string $pathname The directory structure to create
+     * @param null         $mode
+     * @return      bool     Returns TRUE on success, FALSE on failure
+     */
+    public static function mkdirr($pathname, $mode = null)
+    {
+        $return = false;
+
+        // Only continue if user is a 'global' Admin
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+            return false;
+        }
+
+        // Check if directory already exists
+        if (is_dir($pathname) || empty($pathname)) {
+            $return = true;
+        }
+
+        // Ensure a file does not already exist with the same name
+        if (is_file($pathname)) {
+            trigger_error('mkdirr() File exists', E_USER_WARNING);
+            $return = false;
+        }
+
+        // Crawl up the directory tree
+        $nextPathname = substr($pathname, 0, strrpos($pathname, '/'));
+        if (self::mkdirr($nextPathname, $mode)) {
+            if (!file_exists($pathname)) {
+                // echo "Making directory $pathname...<br>";
+                $return = mkdir($pathname, $mode);
+            }
+        }
+
+        return $return;
+    }
+
 }

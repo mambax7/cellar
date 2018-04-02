@@ -63,7 +63,7 @@ class Breadcrumb
     }
 
     /**
-     * Render Pedigree BreadCrumb
+     * Render Pedigree
      *
      */
     public function render()
