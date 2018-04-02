@@ -52,20 +52,22 @@ function loadSampleData()
     $helper->loadLanguage('admin');
     $helper->loadLanguage('modinfo');
     $helper->loadLanguage('common');
-    $wineData = \Xmf\Yaml::readWrapped('wine.yml');
+    if (!$wineData = \Xmf\Yaml::readWrapped('wine.yml')) {
+        throw new \UnexpectedValueException('Could not read the win.yml file');
+    }
     \Xmf\Database\TableLoad::truncateTable($moduleDirName . '_wine');
     \Xmf\Database\TableLoad::loadTableFromArray($moduleDirName . '_wine', $wineData);
 
     //  ---  COPY test folder files ---------------
     if (count($configurator->copyTestFolders) > 0) {
-        //        $file = __DIR__ . '/../testdata/images/';
+        //        $file = __DIR__ . ' /../testdata / images / ';
         foreach (array_keys($configurator->copyTestFolders) as $i) {
             $src  = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];
             $utility::xcopy($src, $dest);
         }
     }
-    redirect_header('../admin/index.php', 1, AM_CELLAR_SAMPLEDATA_SUCCESS);
+    redirect_header(' ../admin / index . php', 1, AM_CELLAR_SAMPLEDATA_SUCCESS);
 }
 
 function saveSampleData()
@@ -76,9 +78,9 @@ function saveSampleData()
     $tables = ['wine',];
 
     foreach ($tables as $table) {
-        \Xmf\Database\TableLoad::saveTableToYamlFile($moduleDirName . '_' . $table, $table . '.yml');
+        \Xmf\Database\TableLoad::saveTableToYamlFile($moduleDirName . '_' . $table, $table . ' . yml');
     }
 
-    redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
+    redirect_header(' ../admin / index . php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
 
 }

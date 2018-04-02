@@ -58,22 +58,22 @@ trait FilesManagement
     }
 
     /**
-     * @param null|resource|string $src
-     * @param null|resource|string $dst
+     * @param null|resource $src
+     * @param null|resource $dest
      * @throws \UnexpectedValueException
      */
-    public static function recurseCopy($src = null, $dst = null)
+    public static function recurseCopy($src = null, $dest = null)
     {
         $dir = opendir($src);
-        if (!mkdir($dst) && !is_dir($dst)) {
-            throw new \UnexpectedValueException('The directory ' . $dst . ' could not be created.');
+        if (!mkdir($dest) && !is_dir($dest)) {
+            throw new \UnexpectedValueException(sprintf('Directory "%s" was not created', $dest));
         }
         while (false !== ($file = readdir($dir))) {
             if (('.' !== $file) && ('..' !== $file)) {
                 if (is_dir($src . '/' . $file)) {
-                    self::recurseCopy($src . '/' . $file, $dst . '/' . $file);
+                    self::recurseCopy($src . '/' . $file, $dest . '/' . $file);
                 } else {
-                    copy($src . '/' . $file, $dst . '/' . $file);
+                    copy($src . '/' . $file, $dest . '/' . $file);
                 }
             }
         }
@@ -178,7 +178,7 @@ trait FilesManagement
      *
      * @todo currently won't remove directories with hidden files, should it?
      *
-     * @param null|resource|string $src directory to remove (delete)
+     * @param null|resource $src directory to remove (delete)
      *
      * @return bool true on success
      */
@@ -215,8 +215,8 @@ trait FilesManagement
     /**
      * Recursively move files from one directory to another
      *
-     * @param string $src  - Source of files being moved
-     * @param string $dest - Destination of files being moved
+     * @param null|resource $src  - Source of files being moved
+     * @param null|resource $dest - Destination of files being moved
      *
      * @return bool true on success
      */
@@ -255,8 +255,8 @@ trait FilesManagement
     /**
      * Recursively copy directories and files from one directory to another
      *
-     * @param null|resource|string $src  - Source of files being moved
-     * @param null|resource|string $dest - Destination of files being moved
+     * @param null|resource $src  - Source of files being moved
+     * @param null|resource $dest - Destination of files being moved
      *
      * @uses \Xmf\Module\Helper::getHelper()
      * @uses \Xmf\Module\Helper::isUserAdmin()

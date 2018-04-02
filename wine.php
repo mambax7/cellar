@@ -73,7 +73,7 @@ switch ($op) {
         $wine['grapes']      = $wineObject->getVar('grapes');
         $wine['country']     = $wineObject->getVar('country');
         $wine['region']      = $wineObject->getVar('region');
-        $wine['description'] = strip_tags($wineObject->getVar('description'));
+        $wine['description'] = strip_tags((string)$wineObject->getVar('description'));
         $wine['picture']     = $wineObject->getVar('picture');
 
         //       $GLOBALS['xoopsTpl']->append('wine', $wine);
