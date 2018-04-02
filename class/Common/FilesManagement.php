@@ -178,7 +178,7 @@ trait FilesManagement
      *
      * @todo currently won't remove directories with hidden files, should it?
      *
-     * @param null|resource $src directory to remove (delete)
+     * @param null|resource|string $src directory to remove (delete)
      *
      * @return bool true on success
      */
@@ -190,7 +190,7 @@ trait FilesManagement
         }
 
         // If source is not a directory stop processing
-        if (!is_dir($src)) {
+        if (is_string($src) && !is_dir($src)) {
             return false;
         }
 
@@ -215,7 +215,7 @@ trait FilesManagement
     /**
      * Recursively move files from one directory to another
      *
-     * @param null|resource $src  - Source of files being moved
+     * @param null|resource|string $src  - Source of files being moved
      * @param null|resource $dest - Destination of files being moved
      *
      * @return bool true on success
@@ -228,7 +228,7 @@ trait FilesManagement
         }
 
         // If source is not a directory stop processing
-        if (!is_dir($src)) {
+        if (is_string($src) && !is_dir($src)) {
             return false;
         }
 
@@ -255,7 +255,7 @@ trait FilesManagement
     /**
      * Recursively copy directories and files from one directory to another
      *
-     * @param null|resource $src  - Source of files being moved
+     * @param null|resource|string $src  - Source of files being moved
      * @param null|resource $dest - Destination of files being moved
      *
      * @uses \Xmf\Module\Helper::getHelper()
@@ -271,7 +271,7 @@ trait FilesManagement
         }
 
         // If source is not a directory stop processing
-        if (!is_dir($src)) {
+        if (is_string($src) && !is_dir($src)) {
             return false;
         }
 
