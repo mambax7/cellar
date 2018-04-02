@@ -58,8 +58,8 @@ trait FilesManagement
     }
 
     /**
-     * @param null|resource $src
-     * @param null|resource $dst
+     * @param null|resource|string $src
+     * @param null|resource|string $dst
      * @throws \UnexpectedValueException
      */
     public static function recurseCopy($src = null, $dst = null)
@@ -178,7 +178,7 @@ trait FilesManagement
      *
      * @todo currently won't remove directories with hidden files, should it?
      *
-     * @param resource|string $src directory to remove (delete)
+     * @param null|resource|string $src directory to remove (delete)
      *
      * @return bool true on success
      */
@@ -255,8 +255,8 @@ trait FilesManagement
     /**
      * Recursively copy directories and files from one directory to another
      *
-     * @param resource|string $src  - Source of files being moved
-     * @param resource|string $dest - Destination of files being moved
+     * @param null|resource|string $src  - Source of files being moved
+     * @param null|resource|string $dest - Destination of files being moved
      *
      * @uses \Xmf\Module\Helper::getHelper()
      * @uses \Xmf\Module\Helper::isUserAdmin()
