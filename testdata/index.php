@@ -56,7 +56,7 @@ function loadSampleData()
         throw new \UnexpectedValueException('Could not read the win.yml file');
     }
     \Xmf\Database\TableLoad::truncateTable($moduleDirName . '_wine');
-    \Xmf\Database\TableLoad::loadTableFromArray($moduleDirName . '_wine', $wineData);
+    \Xmf\Database\TableLoad::loadTableFromArray($moduleDirName . '_wine', (array)$wineData);
 
     //  ---  COPY test folder files ---------------
     if (count($configurator->copyTestFolders) > 0) {

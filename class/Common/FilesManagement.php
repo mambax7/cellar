@@ -59,7 +59,7 @@ trait FilesManagement
 
     /**
      * @param null|resource $src
-     * @param null|resource $dest
+     * @param null|resource|string $dest
      * @throws \UnexpectedValueException
      */
     public static function recurseCopy($src = null, $dest = null)
@@ -85,8 +85,8 @@ trait FilesManagement
      * @author      Aidan Lister <aidan@php.net>
      * @version     1.0.1
      * @link        http://aidanlister.com/2004/04/recursively-copying-directories-in-php/
-     * @param       string $source Source path
-     * @param       string $dest   Destination path
+     * @param       resource|string $source Source path
+     * @param       resource|string $dest   Destination path
      * @return      bool     Returns true on success, false on failure
      * @throws \UnexpectedValueException
      */
