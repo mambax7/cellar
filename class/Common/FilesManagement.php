@@ -58,11 +58,11 @@ trait FilesManagement
     }
 
     /**
-     * @param $src
-     * @param $dst
+     * @param null|resource $src
+     * @param null|resource $dst
      * @throws \UnexpectedValueException
      */
-    public static function recurseCopy($src, $dst)
+    public static function recurseCopy($src = null, $dst = null)
     {
         $dir = opendir($src);
         if (!mkdir($dst) && !is_dir($dst)) {
@@ -178,11 +178,11 @@ trait FilesManagement
      *
      * @todo currently won't remove directories with hidden files, should it?
      *
-     * @param string $src directory to remove (delete)
+     * @param resource|string $src directory to remove (delete)
      *
      * @return bool true on success
      */
-    public static function rrmdir($src)
+    public static function rrmdir($src = null)
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -255,15 +255,15 @@ trait FilesManagement
     /**
      * Recursively copy directories and files from one directory to another
      *
-     * @param string $src  - Source of files being moved
-     * @param string $dest - Destination of files being moved
+     * @param resource|string $src  - Source of files being moved
+     * @param resource|string $dest - Destination of files being moved
      *
      * @uses \Xmf\Module\Helper::getHelper()
      * @uses \Xmf\Module\Helper::isUserAdmin()
      *
      * @return bool true on success
      */
-    public static function rcopy($src, $dest)
+    public static function rcopy($src = null, $dest = null)
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -281,8 +281,7 @@ trait FilesManagement
         }
 
         // Open the source directory to read in files
-        $iterator = new \DirectoryIterator($src);
-        foreach ($iterator as $fObj) {
+        foreach (new \DirectoryIterator($src) as $fObj) {
             if ($fObj->isFile()) {
                 copy($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
             } elseif (!$fObj->isDot() && $fObj->isDir()) {

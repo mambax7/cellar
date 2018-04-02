@@ -10,19 +10,6 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * Module: cellar
- *
- * @category        Module
- * @package         cellar
- * @author          XOOPS Development Team <name@site.com> - <https://xoops.org>
- * @copyright       {@link https://xoops.org/ XOOPS Project}
- * @license         GPL 2.0 or later
- * @link            https://xoops.org/
- * @since           1.0.0
- */
-
-use Xmf\Request;
 use XoopsModules\Cellar;
 
 require_once __DIR__ . '/../../../include/cp_header.php';

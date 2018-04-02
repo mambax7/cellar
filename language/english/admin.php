@@ -10,20 +10,6 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * Module: cellar
- *
- * @category        Module
- * @package         cellar
- * @author          XOOPS Development Team <name@site.com> - <https://xoops.org>
- * @copyright       {@link https://xoops.org/ XOOPS Project}
- * @license         GPL 2.0 or later
- * @link            https://xoops.org/
- * @since           1.0.0
- */
-
-use Xmf\Request;
-
 //Index
 define('AM_CELLAR_STATISTICS', 'Cellar statistics');
 define('AM_CELLAR_THEREARE_WINE', "There are <span class='bold'>%s</span> Wine in the database");

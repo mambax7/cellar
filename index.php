@@ -22,8 +22,6 @@
  * @since           1.0.0
  */
 
-use XoopsModules\Cellar;
-
 $GLOBALS['xoopsOption']['template_main'] = 'cellar_index.tpl';
 require_once __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/header.php';

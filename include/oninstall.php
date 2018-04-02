@@ -77,8 +77,8 @@ function xoops_module_install_cellar(\XoopsModule $module)
     $helper->loadLanguage('modinfo');
 
     // default Permission Settings ----------------------
-    $moduleId  = $module->getVar('mid');
-    $moduleId2 = $helper->getModule()->mid();
+//    $moduleId0  = $module->getVar('mid');
+    $moduleId = $helper->getModule()->mid();
     //$moduleName = $module->getVar('name');
     /** @var \XoopsGroupPermHandler $gpermHandler */
     $gpermHandler = xoops_getHandler('groupperm');

@@ -21,14 +21,14 @@
  * @since           1.0.0
  */
 
-use Xmf\Request;
+
 use XoopsModules\Cellar;
 
 require_once __DIR__ . '/../../include/common.php';
 
-$moduleDirName = basename(dirname(dirname(__DIR__)));
-$helper        = Cellar\Helper::getInstance();
-$permHelper    = new \Xmf\Module\Helper\Permission();
+//$moduleDirName = basename(dirname(dirname(__DIR__)));
+//$helper        = Cellar\Helper::getInstance();
+//$permHelper    = new \Xmf\Module\Helper\Permission();
 
 xoops_load('XoopsFormLoader');
 
@@ -37,6 +37,7 @@ xoops_load('XoopsFormLoader');
  */
 class WineForm extends \XoopsThemeForm
 {
+    /** @var Cellar\Wine $targetObject */
     public $targetObject;
 
     /**

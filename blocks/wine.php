@@ -70,7 +70,7 @@ function editCellarWine($options)
     $form .= "<input name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' type='text' />&nbsp;<br>";
     $form .= MB_CELLAR_TITLELENGTH . " : <input name='options[2]' size='5' maxlength='255' value='" . $options[2] . "' type='text' /><br><br>";
 
-    /** @var XoopsPersistableObjectHandler $'. wine . 'Handler */
+    /** @var \XoopsPersistableObjectHandler $'. wine . 'Handler */
     $wineHandler = new Cellar\WineHandler($GLOBALS['xoopsDB']);
 
     $criteria = new \CriteriaCompo();
@@ -82,10 +82,11 @@ function editCellarWine($options)
     $criteria->setOrder('ASC');
     $wineArray = $wineHandler->getAll($criteria);
     $form      .= MB_CELLAR_CATTODISPLAY . "<br><select name='options[]' multiple='multiple' size='5'>";
-    $form      .= "<option value='0' " . (false === in_array(0, $options) ? '' : "selected='selected'") . '>' . MB_CELLAR_ALLCAT . '</option>';
+    $form      .= "<option value='0' " . (false === in_array(0, $options, true) ? '' : "selected='selected'") . '>' . MB_CELLAR_ALLCAT . '</option>';
+    /** @var \XoopsObject[] $wineArray */
     foreach (array_keys($wineArray) as $i) {
         $id   = $wineArray[$i]->getVar('id');
-        $form .= "<option value='" . $id . "' " . (false === in_array($id, $options) ? '' : "selected='selected'") . '>' . $wineArray[$i]->getVar('id') . '</option>';
+        $form .= "<option value='" . $id . "' " . (false === in_array($id, $options, true) ? '' : "selected='selected'") . '>' . $wineArray[$i]->getVar('id') . '</option>';
     }
     $form .= '</select>';
 

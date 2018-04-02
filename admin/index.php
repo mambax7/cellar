@@ -22,10 +22,6 @@
  * @since           1.0.0
  */
 
-use Xmf\Request;
-use XoopsModules\Cellar;
-use XoopsModules\Cellar\Common;
-
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();

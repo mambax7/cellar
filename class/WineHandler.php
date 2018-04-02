@@ -23,8 +23,8 @@ namespace XoopsModules\Cellar;
  */
 
 
-$moduleDirName = basename(dirname(__DIR__));
-$permHelper = new \Xmf\Module\Helper\Permission();
+//$moduleDirName = basename(dirname(__DIR__));
+//$permHelper = new \Xmf\Module\Helper\Permission();
 
 /**
  * Class WineHandler

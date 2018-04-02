@@ -100,6 +100,7 @@ switch ($op) {
 
         if ($wineCount > 0) {
             foreach (array_keys($wineArray) as $i) {
+                /** @var \XoopsObject[] $wineArray */
                 $wine['id']          = $wineArray[$i]->getVar('id');
                 $wine['name']        = $wineArray[$i]->getVar('name');
                 $wine['year']        = $wineArray[$i]->getVar('year');

@@ -47,7 +47,8 @@ class Utility
      */
     public static function selectSorting($text, $form_sort)
     {
-        global $start, $order, $file_cat, $sort, $xoopsModule;
+        global $start, $order,  $sort;
+//        global $file_cat, $xoopsModule;
 
         $moduleDirName = basename(dirname(__DIR__));
 
@@ -61,7 +62,7 @@ class Utility
 
         $select_view = '<form name="form_switch" id="form_switch" action="' . Request::getString('REQUEST_URI', '', 'SERVER') . '" method="post"><span style="font-weight: bold;">' . $text . '</span>';
         //$sorts =  $sort ==  'asc' ? 'desc' : 'asc';
-        if ($form_sort == $sort) {
+        if ($form_sort === $sort) {
             $sel1 = 'asc' === $order ? 'selasc.png' : 'asc.png';
             $sel2 = 'desc' === $order ? 'seldesc.png' : 'desc.png';
         } else {
@@ -82,7 +83,7 @@ class Utility
      */
     public static function block_addCatSelect($cats)
     {
-        $cat_sql = '';
+//        $cat_sql = '';
         $cat_sql = '(' . current($cats);
         array_shift($cats);
         foreach ($cats as $cat) {
@@ -98,13 +99,15 @@ class Utility
      */
     public static function meta_keywords($content)
     {
+        /** @var \xos_opal_Theme $xoTheme */
+        /** @var \XoopsTpl $xoopsTpl */
         global $xoopsTpl, $xoTheme;
         $myts    = \MyTextSanitizer::getInstance();
         $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
         if (null !== $xoTheme && is_object($xoTheme)) {
             $xoTheme->addMeta('meta', 'keywords', strip_tags($content));
         } else {    // Compatibility for old Xoops versions
-            $xoopsTpl->assign('xoops_meta_keywords', strip_tags($content));
+                 $xoopsTpl->assign('xoops_meta_keywords', strip_tags($content));
         }
     }
 
@@ -113,6 +116,8 @@ class Utility
      */
     public static function meta_description($content)
     {
+        /** @var \xos_opal_Theme $xoTheme */
+        /** @var \XoopsTpl $xoopsTpl */
         global $xoopsTpl, $xoTheme;
         $myts    = \MyTextSanitizer::getInstance();
         $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
@@ -159,7 +164,7 @@ class Utility
      */
     public static function cloneRecord($tableName, $id_field, $id)
     {
-        $new_id = false;
+//        $new_id = false;
         $table  = $GLOBALS['xoopsDB']->prefix($tableName);
         // copy content of the record you wish to clone 
 
@@ -194,6 +199,7 @@ class Utility
      */
     public static function truncateHtml($text, $length = 100, $ending = '...', $exact = false, $considerHtml = true)
     {
+        $open_tags = [];
         if ($considerHtml) {
             // if the plain text is shorter than the maximum length, return the whole text
             if (strlen(preg_replace('/<.*?' . '>/', '', $text)) <= $length) {

@@ -46,13 +46,13 @@ function xoops_module_pre_uninstall_cellar(\XoopsModule $module = null)
 function xoops_module_uninstall_cellar(\XoopsModule $module)
 {
     include __DIR__ . '/../preloads/autoloader.php';
-    $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+//    $moduleDirName      = basename(dirname(__DIR__));
+//    $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
 
     /** @var Cellar\Helper $helper */
     /** @var Cellar\Utility $utility */
     $helper  = Cellar\Helper::getInstance();
-    $utility = new Cellar\Utility();
+//    $utility = new Cellar\Utility();
     //    $configurator = new Cellar\Common\Configurator();
 
     // Load language files

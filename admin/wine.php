@@ -24,6 +24,7 @@
 
 use Xmf\Request;
 use Xmf\Module\Helper\Permission;
+use XoopsModules\Cellar;
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
@@ -52,6 +53,7 @@ switch ($op) {
         $criteria->setLimit($winePaginationLimit);
         $criteria->setStart($start);
         $wineTempRows  = $wineHandler->getCount();
+        /** @var \XoopsObject[] $wineTempArray */
         $wineTempArray = $wineHandler->getAll($criteria);/*
 //
 // 
@@ -171,6 +173,7 @@ switch ($op) {
         $adminObject->addItemButton(AM_CELLAR_WINE_LIST, 'wine.php', 'list');
         echo $adminObject->displayButton('left');
 
+        /** @var Cellar\Wine $wineObject */
         $wineObject = $wineHandler->create();
         $form       = $wineObject->getForm();
         $form->display();
@@ -180,7 +183,7 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('wine.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        if (0 != Request::getInt('id', 0)) {
+        if (0 !== Request::getInt('id', 0)) {
             $wineObject = $wineHandler->get(Request::getInt('id', 0));
         } else {
             $wineObject = $wineHandler->create();
@@ -218,6 +221,7 @@ switch ($op) {
         }
 
         echo $wineObject->getHtmlErrors();
+        /** @var Cellar\Wine $wineObject */
         $form = $wineObject->getForm();
         $form->display();
         break;
@@ -227,13 +231,14 @@ switch ($op) {
         $adminObject->addItemButton(AM_CELLAR_WINE_LIST, 'wine.php', 'list');
         echo $adminObject->displayButton('left');
         $wineObject = $wineHandler->get(Request::getString('id', ''));
+        /** @var Cellar\Wine $wineObject */
         $form       = $wineObject->getForm();
         $form->display();
         break;
 
     case 'delete':
         $wineObject = $wineHandler->get(Request::getString('id', ''));
-        if (1 == Request::getInt('ok', 0)) {
+        if (1 === Request::getInt('ok', 0)) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('wine.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }

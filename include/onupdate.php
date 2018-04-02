@@ -54,7 +54,7 @@ function xoops_module_pre_update_cellar(\XoopsModule $module)
 {
     /** @var Cellar\Helper $helper */
     /** @var Cellar\Utility $utility */
-    $helper  = Cellar\Helper::getInstance();
+//    $helper  = Cellar\Helper::getInstance();
     $utility = new Cellar\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
